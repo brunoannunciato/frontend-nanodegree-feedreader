@@ -27,20 +27,16 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
+        // get all items of object allFeeds and
+        // verify if all them have url Property
         it('verify if all feeds has a url', () => {
             for (const item of allFeeds) {
                 expect(item.url).toBeTruthy();
             }
         });
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
+        // get all items of object allFeeds and
+        // verify if all them have name Property
 
         it('verify if all feeds has a name', () => {
             for (const item of allFeeds) {
@@ -50,28 +46,20 @@ $(function() {
     });
 
 
-    /* TODO: Write a new test suite named "The menu" */
+    /* Start of a test suit called 'The menu' */
     describe('The menu', () => {
         let docBody;
         beforeEach(() => {
             docBody = document.querySelector('body');
         });
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
+        /* Verify if body element has 'menu-hidden' class */
         
         it ('Menu must be hidden when site render', () => {     
             expect(docBody.classList).toContain('menu-hidden');
         });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+         /* click in menu icon two time and ensure if this function is working as expected */
 
         it('Open and close menu function working', () => {
             let menuIcon = document.querySelector('.icon-list');
@@ -85,43 +73,39 @@ $(function() {
 
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    /* Start of a test suit called 'Initial Entries' */
     describe('Initial Entries', () => {
          
-        /* TODO: Write a test that ensures when the loadFeed
-        * function is called and completes its work, there is at least
-        * a single .entry element within the .feed container.
-        * Remember, loadFeed() is asynchronous so this test will require
-        * the use of Jasmine's beforeEach and asynchronous done() function.
-        */
+        /* Before each specs call loadFeed function with id 0 and done function in callback then verify if there more than one .entry inside .feed*/
         beforeEach(function (done) {
             loadFeed(0, () => done());
         });
 
         it('verify loadFeed call and if there is a .entry element inside .feed', (done) => {
-            expect(document.querySelector('article').classList).toContain('entry');
+            expect(document.querySelectorAll('.feed .entry').length).not.toBe(0);
             
             done();
         });
        
     });
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    
+    /* Start of a test suit called 'Initial Entries' */
     describe('New Feed Selection', () => {
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+        /* 
+        Before the specs define primaryFeed and secondaryFeed variables and save the text content inside them.
+        Then verify if the variables has different content.
+        */
 
         let primaryFeed,
             secondaryFeed;
 
         beforeEach(function (done) {
             loadFeed(0, function () {
-                primaryFeed = document.querySelector('.header-title').textContent;
+                primaryFeed = document.querySelector('.entry h2').textContent;
 
                 loadFeed(1, function () {
-                    secondaryFeed = document.querySelector('.header-title').textContent;
+                    secondaryFeed = document.querySelector('.entry h2').textContent;
                     done();
                 });
             });
